@@ -1,10 +1,8 @@
-import { motion } from 'framer-motion';
-
 interface SectionHeaderProps {
   badge?: string;
   title: string;
   subtitle?: string;
-  align?: 'left' | 'center';
+  align?: "left" | "center";
   className?: string;
 }
 
@@ -12,13 +10,15 @@ export function SectionHeader({
   badge,
   title,
   subtitle,
-  align = 'center',
-  className = '',
+  align = "center",
+  className = "",
 }: SectionHeaderProps) {
   return (
     <div
       className={`flex flex-col mb-12 ${
-        align === 'center' ? 'items-center text-center' : 'items-start text-left'
+        align === "center"
+          ? "items-center text-center"
+          : "items-start text-left"
       } ${className}`}
     >
       {badge && (

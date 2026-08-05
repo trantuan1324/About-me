@@ -2,31 +2,34 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, FileDown, Terminal } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { PERSONAL_INFO } from '@/constants/profile';
 
-const NAV_ITEMS = [
-  { name: 'About', href: '#about' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Project', href: '#project' },
-  { name: 'Education', href: '#education' },
-  { name: 'Certifications', href: '#certifications' },
-  { name: 'Contact', href: '#contact' },
-];
-
 export function Navbar() {
+  const t = useTranslations('navigation');
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const NAV_ITEMS = [
+    { name: t('about'), href: '#about', id: 'about' },
+    { name: t('experience'), href: '#experience', id: 'experience' },
+    { name: t('skills'), href: '#skills', id: 'skills' },
+    { name: t('project'), href: '#project', id: 'project' },
+    { name: t('education'), href: '#education', id: 'education' },
+    { name: t('certifications'), href: '#certifications', id: 'certifications' },
+    { name: t('contact'), href: '#contact', id: 'contact' },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = ['hero', ...NAV_ITEMS.map((item) => item.href.substring(1))];
+      const sections = ['hero', ...NAV_ITEMS.map((item) => item.id)];
       const scrollPosition = window.scrollY + 200;
 
       for (const sectionId of sections) {
@@ -44,7 +47,7 @@ export function Navbar() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [t]);
 
   return (
     <header
@@ -57,10 +60,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Brand Logo */}
-          <Link
-            href="#hero"
-            className="flex items-center gap-2 group focus:outline-none"
-          >
+          <Link href="#hero" className="flex items-center gap-2 group focus:outline-none">
             <div className="p-2 rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-500 text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
               <Terminal className="w-5 h-5" />
             </div>
@@ -77,11 +77,10 @@ export function Navbar() {
           {/* Desktop Nav Items */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             {NAV_ITEMS.map((item) => {
-              const sectionId = item.href.substring(1);
-              const isActive = activeSection === sectionId;
+              const isActive = activeSection === item.id;
               return (
                 <Link
-                  key={item.name}
+                  key={item.id}
                   href={item.href}
                   className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all relative ${
                     isActive
@@ -102,20 +101,22 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Actions: Download CV + Theme Toggle */}
+          {/* Actions: LanguageSwitcher + ThemeToggle + Download CV */}
           <div className="hidden md:flex items-center gap-3">
+            <LanguageSwitcher />
             <ThemeToggle />
             <a
               href="#contact"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 transition-all hover:-translate-y-0.5 active:translate-y-0"
             >
               <FileDown className="w-4 h-4" />
-              <span>Resume</span>
+              <span>{t('resume')}</span>
             </a>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex md:hidden items-center gap-2">
+            <LanguageSwitcher />
             <ThemeToggle />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -140,7 +141,7 @@ export function Navbar() {
             <div className="px-4 pt-3 pb-6 space-y-2">
               {NAV_ITEMS.map((item) => (
                 <Link
-                  key={item.name}
+                  key={item.id}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className="block px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-blue-500/10 hover:text-blue-600 dark:hover:text-blue-400"
@@ -155,7 +156,7 @@ export function Navbar() {
                   className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-blue-600 shadow-md shadow-blue-500/20"
                 >
                   <FileDown className="w-4 h-4" />
-                  <span>Download CV</span>
+                  <span>{t('resume')}</span>
                 </a>
               </div>
             </div>

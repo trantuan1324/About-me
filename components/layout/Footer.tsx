@@ -1,9 +1,11 @@
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Mail, Heart, Terminal } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/shared/BrandIcons';
 import { PERSONAL_INFO } from '@/constants/profile';
 
 export function Footer() {
+  const t = useTranslations('footer');
+
   return (
     <footer className="border-t border-slate-200/60 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-950/50 backdrop-blur-sm py-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,17 +21,13 @@ export function Footer() {
               </span>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Architecting scalable backend solutions & enterprise REST APIs.
+              {t('subtitle')}
             </p>
           </div>
 
           {/* Core tech stack badges */}
           <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400">
-            <span>Built with Next.js 15</span>
-            <span>•</span>
-            <span>TypeScript</span>
-            <span>•</span>
-            <span>Tailwind</span>
+            <span>{t('builtWith')}</span>
           </div>
 
           {/* Social Links */}
@@ -63,9 +61,9 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-slate-200/40 dark:border-slate-800/40 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 gap-2 text-center sm:text-left">
-          <p>© {new Date().getFullYear()} Quang Tuan Tran. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} {t('copyright')}</p>
           <p className="flex items-center justify-center gap-1">
-            Made with <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500 inline" /> in Hanoi, Vietnam
+            {t('madeWith')}
           </p>
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import {
   ExternalLink,
@@ -25,15 +26,16 @@ const ARCH_ICON_MAP: Record<string, any> = {
 };
 
 export function ProjectSection() {
+  const t = useTranslations('project');
   const [activeTab, setActiveTab] = useState<'overview' | 'architecture' | 'rationale'>('overview');
 
   return (
     <section id="project" className="py-24 relative bg-slate-50/50 dark:bg-slate-950/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="Featured Engineering Work"
-          title="Featured Project Showcase"
-          subtitle="Deep dive into E-Flow Learning — an enterprise-grade backend for modern online learning platforms."
+          badge={t('sectionBadge')}
+          title={t('title')}
+          subtitle={t('subtitle')}
         />
 
         {/* Project Card */}
@@ -46,10 +48,10 @@ export function ProjectSection() {
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-blue-500/20 text-cyan-400 border border-blue-500/30">
-                    {FEATURED_PROJECT.version || 'v1.0.0'}
+                    {t('version')}
                   </span>
                   <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                    Production Architecture Ready
+                    {t('status')}
                   </span>
                 </div>
 
@@ -70,7 +72,7 @@ export function ProjectSection() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-500/30 transition-all hover:scale-105"
                 >
                   <GithubIcon className="w-4 h-4" />
-                  <span>View Repository</span>
+                  <span>{t('viewRepo')}</span>
                 </a>
               </div>
             </div>
@@ -85,7 +87,7 @@ export function ProjectSection() {
                     : 'text-slate-400 hover:text-white hover:bg-slate-800'
                 }`}
               >
-                Overview & Features
+                {t('tabs.overview')}
               </button>
               <button
                 onClick={() => setActiveTab('architecture')}
@@ -95,7 +97,7 @@ export function ProjectSection() {
                     : 'text-slate-400 hover:text-white hover:bg-slate-800'
                 }`}
               >
-                Architecture Highlights
+                {t('tabs.architecture')}
               </button>
               <button
                 onClick={() => setActiveTab('rationale')}
@@ -105,7 +107,7 @@ export function ProjectSection() {
                     : 'text-slate-400 hover:text-white hover:bg-slate-800'
                 }`}
               >
-                Technology Rationale
+                {t('tabs.rationale')}
               </button>
             </div>
           </div>
@@ -122,7 +124,7 @@ export function ProjectSection() {
               >
                 <div>
                   <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-                    Project Description
+                    {t('descTitle')}
                   </h4>
                   <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
                     {FEATURED_PROJECT.longDescription}
@@ -132,7 +134,7 @@ export function ProjectSection() {
                 {/* Key Technical Accomplishments */}
                 <div>
                   <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-4">
-                    Key Technical Achievements
+                    {t('achievementsTitle')}
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {FEATURED_PROJECT.highlights.map((highlight, idx) => (
@@ -152,7 +154,7 @@ export function ProjectSection() {
                 {/* All Tech Badges */}
                 <div>
                   <h4 className="text-sm font-mono text-slate-500 dark:text-slate-400 mb-3">
-                    COMPREHENSIVE TECH STACK
+                    {t('techStackTitle')}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {FEATURED_PROJECT.technologies.map((tech) => (
@@ -204,7 +206,7 @@ export function ProjectSection() {
                 <div className="p-6 rounded-2xl bg-slate-950 text-slate-200 font-mono text-xs overflow-x-auto border border-slate-800">
                   <p className="text-slate-400 mb-2 font-bold flex items-center gap-2">
                     <FolderTree className="w-4 h-4 text-cyan-400" />
-                    Package-by-Feature Directory Structure
+                    {t('treeTitle')}
                   </p>
                   <pre className="text-slate-300 leading-tight">
 {`com.eflow.learning

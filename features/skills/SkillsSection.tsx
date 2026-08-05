@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import {
   Code2,
@@ -26,12 +27,12 @@ import {
 import { SKILL_CATEGORIES } from '@/constants/profile';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 
-const CATEGORY_ICON_MAP = {
-  Code2: Code2,
-  Database: Database,
-  Lock: Lock,
-  Wrench: Wrench,
-  Workflow: Workflow,
+const CATEGORY_ICON_MAP: Record<string, any> = {
+  Code2,
+  Database,
+  Lock,
+  Wrench,
+  Workflow,
 };
 
 const SKILL_ICON_MAP: Record<string, any> = {
@@ -53,6 +54,7 @@ const SKILL_ICON_MAP: Record<string, any> = {
 };
 
 export function SkillsSection() {
+  const t = useTranslations('skills');
   const [activeCategory, setActiveCategory] = useState<string>('all');
 
   const filteredCategories =
@@ -64,9 +66,9 @@ export function SkillsSection() {
     <section id="skills" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="Technical Proficiency"
-          title="Skills & Technologies"
-          subtitle="Visualizing backend languages, security frameworks, database engines, and software engineering tools."
+          badge={t('sectionBadge')}
+          title={t('title')}
+          subtitle={t('subtitle')}
         />
 
         {/* Category Filter Pills */}
@@ -79,7 +81,7 @@ export function SkillsSection() {
                 : 'glass-panel text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
-            All Skills
+            {t('allSkills')}
           </button>
           {SKILL_CATEGORIES.map((category) => (
             <button
@@ -91,7 +93,7 @@ export function SkillsSection() {
                   : 'glass-panel text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              {category.title}
+              {t(`categories.${category.id}`)}
             </button>
           ))}
         </div>
@@ -99,8 +101,7 @@ export function SkillsSection() {
         {/* Skills Categories Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {filteredCategories.map((category, cIdx) => {
-            const CategoryIcon =
-              CATEGORY_ICON_MAP[category.icon as keyof typeof CATEGORY_ICON_MAP] || Code2;
+            const CategoryIcon = CATEGORY_ICON_MAP[category.icon] || Code2;
             return (
               <motion.div
                 key={category.id}
@@ -117,7 +118,7 @@ export function SkillsSection() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                      {category.title}
+                      {t(`categories.${category.id}`)}
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400">
                       {category.description}
@@ -139,7 +140,7 @@ export function SkillsSection() {
                             </span>
                             {skill.isFeatured && (
                               <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
-                                Primary
+                                {t('primaryTag')}
                               </span>
                             )}
                           </div>

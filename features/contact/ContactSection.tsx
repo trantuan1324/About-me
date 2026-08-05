@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import {
   Mail,
@@ -17,6 +18,7 @@ import { PERSONAL_INFO } from '@/constants/profile';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 
 export function ContactSection() {
+  const t = useTranslations('contact');
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -32,7 +34,6 @@ export function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API form submission
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -56,9 +57,9 @@ export function ContactSection() {
     <section id="contact" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="Let's Connect"
-          title="Contact & Collaboration"
-          subtitle="Interested in building high-scale backend services or discussing engineering opportunities? Drop me a message!"
+          badge={t('sectionBadge')}
+          title={t('title')}
+          subtitle={t('subtitle')}
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -73,7 +74,7 @@ export function ContactSection() {
             <div className="glass-panel p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 shadow-xl">
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                 <MessageSquare className="w-6 h-6 text-blue-500" />
-                Contact Information
+                {t('infoTitle')}
               </h3>
 
               <div className="space-y-6">
@@ -84,7 +85,7 @@ export function ContactSection() {
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-xs font-mono text-slate-500 dark:text-slate-400">EMAIL</p>
+                      <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{t('emailLabel')}</p>
                       <a
                         href={`mailto:${PERSONAL_INFO.email}`}
                         className="text-sm font-semibold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
@@ -109,7 +110,7 @@ export function ContactSection() {
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
-                      <p className="text-xs font-mono text-slate-500 dark:text-slate-400">PHONE</p>
+                      <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{t('phoneLabel')}</p>
                       <a
                         href={`tel:${PERSONAL_INFO.phone}`}
                         className="text-sm font-semibold text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400"
@@ -133,7 +134,7 @@ export function ContactSection() {
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs font-mono text-slate-500 dark:text-slate-400">LOCATION</p>
+                    <p className="text-xs font-mono text-slate-500 dark:text-slate-400">{t('locationLabel')}</p>
                     <p className="text-sm font-semibold text-slate-900 dark:text-white">
                       {PERSONAL_INFO.location}
                     </p>
@@ -144,7 +145,7 @@ export function ContactSection() {
               {/* Social Channels */}
               <div className="mt-8 pt-6 border-t border-slate-200/60 dark:border-slate-800/60">
                 <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mb-4">
-                  SOCIAL CHANNELS
+                  {t('socialTitle')}
                 </p>
                 <div className="flex items-center gap-4">
                   <a
@@ -180,10 +181,10 @@ export function ContactSection() {
           >
             <div className="glass-panel p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 shadow-xl">
               <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                Send a Direct Message
+                {t('formTitle')}
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
-                Fill in the details below to start a conversation.
+                {t('formSub')}
               </p>
 
               {submitted ? (
@@ -194,9 +195,9 @@ export function ContactSection() {
                 >
                   <CheckCircle2 className="w-6 h-6 text-emerald-500 shrink-0" />
                   <div>
-                    <h4 className="font-bold text-sm">Message Sent Successfully!</h4>
+                    <h4 className="font-bold text-sm">{t('successTitle')}</h4>
                     <p className="text-xs mt-0.5">
-                      Thank you for reaching out. I'll get back to you shortly.
+                      {t('successMsg')}
                     </p>
                   </div>
                 </motion.div>
@@ -205,27 +206,27 @@ export function ContactSection() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                        YOUR NAME
+                        {t('nameInput')}
                       </label>
                       <input
                         type="text"
                         required
                         value={formState.name}
                         onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                        placeholder="John Doe"
+                        placeholder={t('namePlaceholder')}
                         className="w-full px-4 py-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-300/70 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                       />
                     </div>
                     <div>
                       <label className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                        YOUR EMAIL
+                        {t('emailInput')}
                       </label>
                       <input
                         type="email"
                         required
                         value={formState.email}
                         onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                        placeholder="john@example.com"
+                        placeholder={t('emailPlaceholder')}
                         className="w-full px-4 py-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-300/70 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                       />
                     </div>
@@ -233,28 +234,28 @@ export function ContactSection() {
 
                   <div>
                     <label className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                      SUBJECT
+                      {t('subjectInput')}
                     </label>
                     <input
                       type="text"
                       required
                       value={formState.subject}
                       onChange={(e) => setFormState({ ...formState, subject: e.target.value })}
-                      placeholder="Backend Developer Inquiry / Project Opportunity"
+                      placeholder={t('subjectPlaceholder')}
                       className="w-full px-4 py-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-300/70 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                     />
                   </div>
 
                   <div>
                     <label className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                      MESSAGE
+                      {t('messageInput')}
                     </label>
                     <textarea
                       required
                       rows={5}
                       value={formState.message}
                       onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                      placeholder="Hello Quang Tuan, I'd like to discuss a project..."
+                      placeholder={t('messagePlaceholder')}
                       className="w-full px-4 py-3 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-300/70 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 resize-none"
                     />
                   </div>
@@ -269,7 +270,7 @@ export function ContactSection() {
                     ) : (
                       <>
                         <Send className="w-4 h-4" />
-                        <span>Send Message</span>
+                        <span>{t('submitBtn')}</span>
                       </>
                     )}
                   </button>

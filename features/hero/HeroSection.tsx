@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { FileDown, Mail, ArrowRight, Code2, ShieldCheck, Database, Server } from 'lucide-react';
 import { PERSONAL_INFO } from '@/constants/profile';
@@ -7,6 +8,8 @@ import { TypingText } from '@/components/shared/TypingText';
 import { TerminalWindow } from '@/components/shared/TerminalWindow';
 
 export function HeroSection() {
+  const t = useTranslations('hero');
+
   return (
     <section
       id="hero"
@@ -28,12 +31,12 @@ export function HeroSection() {
             {/* Status Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium text-blue-700 dark:text-blue-300 bg-blue-500/10 border border-blue-500/20 mb-6 backdrop-blur-md">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-              <span>Available for Backend Developer Opportunities</span>
+              <span>{t('badge')}</span>
             </div>
 
             {/* Main Title */}
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-              Hi, I'm{' '}
+              {t('greeting')}{' '}
               <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 bg-clip-text text-transparent">
                 {PERSONAL_INFO.name}
               </span>
@@ -41,30 +44,29 @@ export function HeroSection() {
 
             {/* Role & Typing Tech */}
             <div className="mt-4 text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-700 dark:text-slate-200 flex flex-wrap items-center gap-2">
-              <span>Enterprise</span>
-              <span className="text-blue-600 dark:text-blue-400">{PERSONAL_INFO.role}</span>
-              <span>specializing in</span>
+              <span className="text-blue-600 dark:text-blue-400">{t('roleTitle')}</span>
+              <span>{t('roleTechPrefix')}</span>
               <TypingText words={PERSONAL_INFO.typedSkills} />
             </div>
 
             {/* Storytelling Intro */}
             <p className="mt-6 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl font-normal">
-              I architect resilient backend microservices, high-throughput RESTful APIs, and robust data storage solutions. Passionate about domain-driven design, clean code, and zero-trust security.
+              {t('introduction')}
             </p>
 
             {/* Quick Tech Badges */}
             <div className="mt-6 flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono bg-slate-200/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-300 border border-slate-300/50 dark:border-slate-700/50">
                 <Server className="w-3.5 h-3.5 text-blue-500" />
-                Java 21 / Spring Boot 4
+                {t('javaBadge')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono bg-slate-200/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-300 border border-slate-300/50 dark:border-slate-700/50">
                 <Database className="w-3.5 h-3.5 text-cyan-500" />
-                PostgreSQL & Flyway
+                {t('dbBadge')}
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono bg-slate-200/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-300 border border-slate-300/50 dark:border-slate-700/50">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                Spring Security & JWT
+                {t('secBadge')}
               </span>
             </div>
 
@@ -74,7 +76,7 @@ export function HeroSection() {
                 href="#project"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-100"
               >
-                <span>View Featured Project</span>
+                <span>{t('primaryCta')}</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
 
@@ -83,7 +85,7 @@ export function HeroSection() {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-slate-800 dark:text-slate-100 bg-white/80 dark:bg-slate-900/80 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-300/70 dark:border-slate-800 backdrop-blur-md shadow-sm transition-all hover:scale-[1.02] active:scale-100"
               >
                 <Mail className="w-4 h-4 text-blue-500" />
-                <span>Contact Me</span>
+                <span>{t('secondaryCta')}</span>
               </a>
 
               <a
@@ -91,7 +93,7 @@ export function HeroSection() {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-blue-600 dark:text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 transition-all hover:scale-[1.02]"
               >
                 <FileDown className="w-4 h-4" />
-                <span>Download CV</span>
+                <span>{t('cvCta')}</span>
               </a>
             </div>
           </motion.div>
@@ -115,7 +117,7 @@ export function HeroSection() {
                       {PERSONAL_INFO.name}
                     </h3>
                     <p className="text-xs font-mono text-cyan-400">
-                      {PERSONAL_INFO.location}
+                      {t('location')}
                     </p>
                     <p className="text-xs text-slate-400 mt-1">
                       Java • Spring Boot • PostgreSQL

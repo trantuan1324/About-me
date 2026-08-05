@@ -1,24 +1,28 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Users, ShieldCheck, Zap, Sparkles, Server, Cpu, CheckCircle2 } from 'lucide-react';
-import { CSF_PHILOSOPHY, PERSONAL_INFO } from '@/constants/profile';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 
 const ICON_MAP = {
-  Users: Users,
-  ShieldCheck: ShieldCheck,
-  Zap: Zap,
+  cooperative: Users,
+  steady: ShieldCheck,
+  flexible: Zap,
 };
 
 export function AboutSection() {
+  const t = useTranslations('about');
+
+  const csfKeys = ['cooperative', 'steady', 'flexible'] as const;
+
   return (
     <section id="about" className="py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          badge="Behind the Code"
-          title="About & Engineering Philosophy"
-          subtitle="Transforming complex domain logic into scalable, robust, and maintainable backend systems."
+          badge={t('sectionBadge')}
+          title={t('title')}
+          subtitle={t('subtitle')}
         />
 
         {/* Storytelling Grid */}
@@ -34,17 +38,17 @@ export function AboutSection() {
             <div className="glass-panel p-8 rounded-3xl relative overflow-hidden border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
 
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
                 <Sparkles className="w-5 h-5 text-blue-500" />
-                Crafting Scalable Backend Ecosystems
+                {t('cardTitle')}
               </h3>
 
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                My software engineering journey is driven by a deep fascination with how large-scale enterprise systems handle data flow, security, and high concurrency. Rather than building superficial interfaces, I derive immense fulfillment from architecting server-side foundations that work flawlessly under load.
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                {t('narrativeP1')}
               </p>
 
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                From developing core APIs for university-wide E-learning platforms at the IT Center (HNUE) to designing Spring Boot microservices for Enterprise HRM at VTI Academy, I treat every API endpoint as a contract of trust. My experience also extends to client-side mobile engineering with Swift at GHTK, giving me unique foresight into how frontends consume backend APIs.
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                {t('narrativeP2')}
               </p>
 
               <div className="pt-4 grid grid-cols-2 gap-4 border-t border-slate-200/50 dark:border-slate-800/50">
@@ -53,8 +57,12 @@ export function AboutSection() {
                     <Server className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">API First</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">RESTful & OpenAPI</p>
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                      {t('apiFirstTitle')}
+                    </h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      {t('apiFirstSub')}
+                    </p>
                   </div>
                 </div>
 
@@ -63,8 +71,12 @@ export function AboutSection() {
                     <Cpu className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">Clean Architecture</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">Package-by-Feature</p>
+                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                      {t('cleanArchTitle')}
+                    </h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      {t('cleanArchSub')}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -81,21 +93,17 @@ export function AboutSection() {
           >
             <div className="p-6 rounded-3xl bg-slate-900 text-white shadow-2xl border border-slate-800">
               <h4 className="text-lg font-bold text-white mb-4 flex items-center justify-between">
-                <span>Core Competencies</span>
-                <span className="text-xs font-mono text-cyan-400">JAVA & SPRING BOOT</span>
+                <span>{t('competenciesTitle')}</span>
+                <span className="text-xs font-mono text-cyan-400">
+                  {t('competenciesSub')}
+                </span>
               </h4>
 
               <ul className="space-y-3.5 text-sm text-slate-300">
-                {[
-                  'Enterprise Application Architecture & REST API Design',
-                  'Spring Security & Stateless Dual-Token JWT Auth',
-                  'Database Schema Migration with Flyway & PostgreSQL',
-                  'Unit Testing (JUnit 5, Mockito) & Automated Quality Gates',
-                  'Cross-functional Agile Delivery & Frontend Synchronization',
-                ].map((item, idx) => (
+                {((t.raw('competencies') as string[]) || []).map((compItem, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>{item}</span>
+                    <span>{compItem}</span>
                   </li>
                 ))}
               </ul>
@@ -107,19 +115,22 @@ export function AboutSection() {
         <div className="mt-16">
           <div className="text-center mb-10">
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-              The <span className="text-blue-600 dark:text-blue-400 font-mono">C.S.F</span> Philosophy
+              {t('csfTitle')}
             </h3>
             <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
-              Three core pillars guiding my engineering mindset and professional conduct.
+              {t('csfSubtitle')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {CSF_PHILOSOPHY.map((principle, index) => {
-              const IconComponent = ICON_MAP[principle.icon as keyof typeof ICON_MAP] || Users;
+            {csfKeys.map((key, index) => {
+              const IconComponent = ICON_MAP[key];
+              const letter = key[0].toUpperCase();
+              const traits = (t.raw(`csf.${key}.traits`) as string[]) || [];
+
               return (
                 <motion.div
-                  key={principle.letter}
+                  key={key}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -133,25 +144,28 @@ export function AboutSection() {
                         <IconComponent className="w-6 h-6" />
                       </div>
                       <span className="text-4xl font-extrabold font-mono text-slate-300 dark:text-slate-700 group-hover:text-blue-500/40 transition-colors">
-                        {principle.letter}
+                        {letter}
                       </span>
                     </div>
 
                     <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
-                      {principle.title}
+                      {t(`csf.${key}.title`)}
                     </h4>
                     <p className="text-xs font-mono text-blue-600 dark:text-cyan-400 mb-3">
-                      {principle.subtitle}
+                      {t(`csf.${key}.subtitle`)}
                     </p>
                     <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                      {principle.description}
+                      {t(`csf.${key}.description`)}
                     </p>
                   </div>
 
                   {/* Traits List */}
                   <div className="pt-4 border-t border-slate-200/60 dark:border-slate-800/60 space-y-2">
-                    {principle.traits.map((trait, tIdx) => (
-                      <div key={tIdx} className="flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-300">
+                    {traits.map((trait, tIdx) => (
+                      <div
+                        key={tIdx}
+                        className="flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-300"
+                      >
                         <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
                         <span>{trait}</span>
                       </div>
