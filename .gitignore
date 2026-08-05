@@ -1,3 +1,22 @@
-node_modules
-.agents
-skills-lock.json
+# dependencies
+/node_modules
+/.pnpm
+/.yarn
+
+# next.js build output
+/.next/
+/out/
+/build
+
+# agent & skills
+/.agents/
+/skills-lock.json
+
+# logs & OS files
+*.log
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+.env
